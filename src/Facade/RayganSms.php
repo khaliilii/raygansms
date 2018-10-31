@@ -10,6 +10,7 @@ namespace Khaliilii\Raygansms\Facade;
 use Exception;
 use SoapClient;
 
+
 class RayganSms {
 
 
@@ -42,15 +43,14 @@ class RayganSms {
         curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($process, CURLOPT_FOLLOWLOCATION, true);
         $return = curl_exec($process);
-        print_r($return);
+        //print_r($return);
         $httpcode = curl_getinfo($process, CURLINFO_HTTP_CODE);
+        curl_close($process);
         if($httpcode==401)
         {
             throw new exception("نام کاربری یا کلمه عبور صحیح نمی باشد");
         }
-        curl_close($process);
         $decoded = json_decode($return);
-
         return $decoded;
     }
 
@@ -79,11 +79,12 @@ class RayganSms {
         curl_setopt($process, CURLOPT_FOLLOWLOCATION, true);
         $return = curl_exec($process);
         $httpcode = curl_getinfo($process, CURLINFO_HTTP_CODE);
+        curl_close($process);
+
         if($httpcode==401)
         {
             throw new exception("نام کاربری یا کلمه عبور صحیح نمی باشد");
         }
-        curl_close($process);
 
         $decoded = json_decode($return);
         if(isset($decoded->Result))
@@ -103,7 +104,11 @@ class RayganSms {
      * number is your number on raygansms.ir
      * if your multi mobile send on arra use top way for explode on mobiles number
      * return function your status send
-     *
+     * return {
+     * "Code": 0
+     * "Message": "عملیات با موفقیت انجام شد"
+     * "Result": "c0613e77-69b8-43f4-a1fd-59e50da41dd6"
+     * }
     */
 
     public function sendMessage($sendNumber,$message,$phones)
@@ -133,54 +138,55 @@ class RayganSms {
 
         $return = curl_exec($process);
         $httpcode = curl_getinfo($process, CURLINFO_HTTP_CODE);
-        print_r($post_data);
+        curl_close($process);
         if($httpcode==401)
         {
             throw new exception("نام کاربری یا کلمه عبور صحیح نمی باشد");
         }
-        curl_close($process);
-        $decoded = json_decode($return);
 
-        print_r($decoded);
+        $decoded = json_decode($return);
         return $decoded;
     }
 
-
-
     /**
      *   show message status
+     * use methode RayganSmsFacade::getStatusMessage(
+     * 'sendNumber',
+     * 'phoneNumber',
+     * 'MessageId');
+     * return SimpleXMLElement {#203 ▼
+     * return [
+     * "mobile" => "9358487574"
+     * ]
+     * +0: "1"
+     * }
      */
-
-    public function getStatusMessage($number,$mobile,$message_id_list)
+    public function getStatusMessage($sendNumber,$phone,$messageId)
     {
-        $client = new soapclient('http://sms.trez.ir/XmlForSMS.asmx?WSDL');
+        $client = new SoapClient('http://sms.trez.ir/XmlForSMS.asmx?WSDL');
         $username = env('RAYGANSMS_USERNAME');
         $password = env('RAYGANSMS_PASSWORD');
         $action='status';
         $type='0';
         $status='';
-        $usergroupid= $message_id_list;
-
+        $usergroupid= $messageId;
         $xmlreq='<?xml version="1.0" encoding="UTF-8"?>
                   <xmlrequest>
-                  
                   <username>'.$username.'</username>
                   <password>'.$password.'</password>
-                  <number>'.$number.'</number>
+                  <number>'.$sendNumber.'</number>
                   <action>'.$action.'</action>
                   <type>'.$type.'</type>
                   <usergroupid>'.$usergroupid.'</usergroupid>
                   <body status="1">
-                  <recipient mobile="'.$mobile.'">"'.$status.'"</recipient>
+                  <recipient mobile="'.$phone.'">"'.$status.'"</recipient>
                   </body>
                   </xmlrequest>';
-
         $xmlres=$client->getxml(array('xmlString'=>$xmlreq));
         $xml=simplexml_load_string($xmlres->getxmlResult);
         $getstatus=$xml->body->recipient;
         return $getstatus;
     }
-
 
     /**
      *   showWhiteList
@@ -207,11 +213,12 @@ class RayganSms {
 
         $return = curl_exec($process);
         $httpcode = curl_getinfo($process, CURLINFO_HTTP_CODE);
+        curl_close($process);
         if($httpcode==401)
         {
             throw new exception("نام کاربری یا کلمه عبور صحیح نمی باشد");
         }
-        curl_close($process);
+
         $decoded = json_decode($return);
         return $decoded;
     }
@@ -245,11 +252,12 @@ class RayganSms {
 
         $return = curl_exec($process);
         $httpcode = curl_getinfo($process, CURLINFO_HTTP_CODE);
+        curl_close($process);
         if($httpcode==401)
         {
             throw new exception("نام کاربری یا کلمه عبور صحیح نمی باشد");
         }
-        curl_close($process);
+
         $decoded = json_decode($return);
         return $decoded;
     }
@@ -283,11 +291,12 @@ class RayganSms {
 
         $return = curl_exec($process);
         $httpcode = curl_getinfo($process, CURLINFO_HTTP_CODE);
+        curl_close($process);
         if($httpcode==401)
         {
             throw new exception("نام کاربری یا کلمه عبور صحیح نمی باشد");
         }
-        curl_close($process);
+
         $decoded = json_decode($return);
         return $decoded;
     }
@@ -319,16 +328,13 @@ class RayganSms {
 
         $return = curl_exec($process);
         $httpcode = curl_getinfo($process, CURLINFO_HTTP_CODE);
+        curl_close($process);
         if($httpcode==401)
         {
             throw new exception("نام کاربری یا کلمه عبور صحیح نمی باشد");
         }
-        curl_close($process);
         $decoded = json_decode($return);
         return $decoded;
     }
-
-
-
 }
 ?>
