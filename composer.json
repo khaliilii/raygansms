@@ -1,0 +1,25 @@
+{
+    "name": "mohkhmk/raygansms",
+    "description": "is package for api service sms from raygan sms author: Mohsen Khalili from pointshare.ir developer team",
+    "type": "library",
+    "require": {
+	"ext-curl": "*",
+        "ext-mbstring": "*"
+	},
+    "autoload":{
+        "psr-4": {
+            "Khaliilii\\Raygansms\\":"src"
+        	}
+	},
+
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mohsen Khalili",
+            "email": "khalili.mohsen@rocketmail.com"
+        }
+    ],
+
+
+	"minimum-stability": "dev"
+}
