@@ -190,6 +190,17 @@ class RayganSms {
 
     /**
      *   showWhiteList
+     * how use:
+     * RayganSmsFacade::showWhiteList(explode(',','phone')
+     * how return
+     * return {
+     * "Code": 0
+     * "Message": "عملیات با موفقیت انجام شد"
+     * "Result": array:1 [▼
+     * 0 => 9392280806
+     * ]
+     * }
+     *
      */
     public function showWhiteList($mobiles_list)
     {
@@ -210,7 +221,6 @@ class RayganSms {
         curl_setopt($process, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($process, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json'));
-
         $return = curl_exec($process);
         $httpcode = curl_getinfo($process, CURLINFO_HTTP_CODE);
         curl_close($process);
@@ -227,15 +237,15 @@ class RayganSms {
     /**
      *   recieve Message
      */
-    public function receiveMessages($phone_number,$start_date,$end_date,$page)
+    public function receiveMessages($phoneNnumber,$startDate,$endDate,$page)
     {
         $url = "http://smspanel.trez.ir/api/smsAPI/ReceiveMessages";
         $username = env('RAYGANSMS_USERNAME');
         $password = env('RAYGANSMS_PASSWORD');
         $post_data = json_encode(array(
-            'PhoneNumber' => $phone_number,
-            'StartDate'=>strtotime($start_date),
-            'EndDate'=>strtotime($end_date),
+            'PhoneNumber' => $phoneNnumber,
+            'StartDate'=>strtotime($startDate),
+            'EndDate'=>strtotime($endDate),
             'Page' => $page
         ));
         $process = curl_init();
