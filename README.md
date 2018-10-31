@@ -1,3 +1,3 @@
 # raygansms
 
-## composer require khaliilii/raygansms
+## composer require mohkhmk/raygansms

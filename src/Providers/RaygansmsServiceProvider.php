@@ -7,7 +7,7 @@
  */
 namespace Khaliilii\Raygansms\Providers;
 use Illuminate\Support\ServiceProvider;
-use Mohkhmk\Raygansms\Facade\RayganSms;
+use Khaliilii\Raygansms\Facade\RayganSms;
 
 class RaygansmsServiceProvider extends ServiceProvider{
     public function boot()
