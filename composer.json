@@ -22,11 +22,11 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Khaliilii\\Raygansms\\Providers"
+        "Khaliilii\\Raygansms\\Providers\\RaygansmsServiceProvider"
 
       ],
       "aliases": {
-        "RayganSmsFacade": "Khaliilii\\Raygansms\\Facade"
+        "RayganSmsFacade": "Khaliilii\\Raygansms\\Facade\\RayganSmsFacade"
       }
     }
   },
