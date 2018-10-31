@@ -1,6 +1,11 @@
 # raygansms
 ## for laravel 5.6, 5.7 install
+### step 1
 ### composer require mohkhmk/raygansms
+### step 2
+### add username and password to .env file
+### RAYGANSMS_USERNAME=******
+### RAYGANSMS_PASSWORD=******
 -----------------------------------------------
 ## for laravel 5.3 to 5.5 install
 ### step 1
@@ -11,3 +16,8 @@
 ### step 3
 ### alias add to config/app.php (For Laravel: v5.3, v5.4)
 ##### 'RayganSmsFacade' => Khaliilii\Raygansms\Facade\RayganSmsFacade::class,
+### step 4
+### add username and password to .env file
+### RAYGANSMS_USERNAME=******
+### RAYGANSMS_PASSWORD=******
+----------------------------------------------------------
