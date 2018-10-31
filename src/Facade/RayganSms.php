@@ -12,6 +12,7 @@ use SoapClient;
 
 class RayganSms {
 
+
     public function __construct()
     {
 
@@ -26,9 +27,11 @@ class RayganSms {
      * }
      * example read return $result->Message;
      */
-    public function getCredit($username,$password)
+    public function getCredit()
     {
         $url = "http://smspanel.trez.ir/api/smsAPI/GetCredit";
+        $username = env('RAYGANSMS_USERNAME');
+        $password = env('RAYGANSMS_PASSWORD');
 
         $process = curl_init();
         curl_setopt($process,CURLOPT_URL,$url);
@@ -61,10 +64,11 @@ class RayganSms {
         }
      */
 
-    public function getPrices($username,$password)
+    public function getPrices()
     {
         $url = "http://smspanel.trez.ir/api/smsAPI/GetPrices";
-
+        $username = env('RAYGANSMS_USERNAME');
+        $password = env('RAYGANSMS_PASSWORD');
         $process = curl_init();
         curl_setopt($process,CURLOPT_URL,$url);
         curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
@@ -102,9 +106,11 @@ class RayganSms {
      *
     */
 
-    public function sendMessage($username,$password,$sendNumber,$message,$phones)
+    public function sendMessage($sendNumber,$message,$phones)
     {
         $url = "http://smspanel.trez.ir/api/smsAPI/SendMessage";
+        $username = env('RAYGANSMS_USERNAME');
+        $password = env('RAYGANSMS_PASSWORD');
         $post_data = json_encode(array(
             'PhoneNumber' => $sendNumber,
             'Message' => $message,
@@ -145,9 +151,11 @@ class RayganSms {
      *   show message status
      */
 
-    public function getStatusMessage($username,$password,$number,$mobile,$message_id_list)
+    public function getStatusMessage($number,$mobile,$message_id_list)
     {
         $client = new soapclient('http://sms.trez.ir/XmlForSMS.asmx?WSDL');
+        $username = env('RAYGANSMS_USERNAME');
+        $password = env('RAYGANSMS_PASSWORD');
         $action='status';
         $type='0';
         $status='';
@@ -177,9 +185,11 @@ class RayganSms {
     /**
      *   showWhiteList
      */
-    public function showWhiteList($username,$password,$mobiles_list)
+    public function showWhiteList($mobiles_list)
     {
         $url = "http://smspanel.trez.ir/api/smsAPI/ShowWhiteList";
+        $username = env('RAYGANSMS_USERNAME');
+        $password = env('RAYGANSMS_PASSWORD');
         $post_data = json_encode(array(
             'MobilesList' => $mobiles_list
         ));
@@ -210,9 +220,11 @@ class RayganSms {
     /**
      *   recieve Message
      */
-    public function receiveMessages($username,$password,$phone_number,$start_date,$end_date,$page)
+    public function receiveMessages($phone_number,$start_date,$end_date,$page)
     {
         $url = "http://smspanel.trez.ir/api/smsAPI/ReceiveMessages";
+        $username = env('RAYGANSMS_USERNAME');
+        $password = env('RAYGANSMS_PASSWORD');
         $post_data = json_encode(array(
             'PhoneNumber' => $phone_number,
             'StartDate'=>strtotime($start_date),
@@ -246,9 +258,11 @@ class RayganSms {
     /**
      *   send Corresponding Message
      */
-    public function sendCorrespondingMessage($username,$password,$phone_number,$recipientsmessage)
+    public function sendCorrespondingMessage($phone_number,$recipientsmessage)
     {
         $url = "http://smspanel.trez.ir/api/smsAPI/SendCorrespondingMessage";
+        $username = env('RAYGANSMS_USERNAME');
+        $password = env('RAYGANSMS_PASSWORD');
         $post_data = json_encode(array(
             'PhoneNumber' => $phone_number,
             'RecipientsMessage' => $recipientsmessage,
@@ -283,9 +297,11 @@ class RayganSms {
      *   corresponding Message Status
      */
 
-    public function correspondingMessageStatus($username,$password,$message_id_list)
+    public function correspondingMessageStatus($message_id_list)
     {
         $url = "http://smspanel.trez.ir/api/smsAPI/CorrespondingMessageStatus";
+        $username = env('RAYGANSMS_USERNAME');
+        $password = env('RAYGANSMS_PASSWORD');
         $post_data = json_encode(array(
             'messageId' => $message_id_list
         ));
