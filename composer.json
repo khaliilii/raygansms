@@ -19,7 +19,17 @@
             "email": "khalili.mohsen@rocketmail.com"
         }
     ],
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Khaliilii\\Raygansms\\Providers"
 
+      ],
+      "aliases": {
+        "RayganSmsFacade": "Khaliilii\\Raygansms\\Facade"
+      }
+    }
+  },
 
 	"minimum-stability": "dev"
 }
