@@ -19,7 +19,7 @@
             "email": "khalili.mohsen@rocketmail.com"
         }
     ],
-
+    "minimum-stability": "dev"
 
 
 }
