@@ -393,13 +393,14 @@ class RayganSms {
 
         $response = curl_exec($curl);
         $err = curl_error($curl);
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        if ($err) {
-            return "cURL Error #:" . $err;
-            }
-        else {
-            return $response;
+        if($httpcode==401)
+        {
+            throw new exception($err);
         }
+        return $response >= 2000 ? true : false;
+
     }
 }
 ?>
