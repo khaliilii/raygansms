@@ -119,6 +119,7 @@ class RayganSms {
     */
     public function sendMessage($sendNumber,$message,$phones)
     {
+        
         $url = "http://smspanel.trez.ir/api/smsAPI/SendMessage";
         $username = env('RAYGANSMS_USERNAME');
         $password = env('RAYGANSMS_PASSWORD');
@@ -294,6 +295,8 @@ class RayganSms {
 
     /**
      *   send Corresponding Message
+     *   sendCorrespondingMessage($phoneNumber,$recipientsMessage)
+     *   
      */
     public function sendCorrespondingMessage($phoneNumber,$recipientsMessage)
     {
